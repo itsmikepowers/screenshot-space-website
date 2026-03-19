@@ -47,22 +47,27 @@ export default function Home() {
           No account required. No limits.
         </p>
         
-        <div className="flex gap-4 mt-10">
-          <a 
-            href={config.downloadUrl}
-            className={cn(buttonVariants({ size: "lg" }), "flex items-center")}
-          >
-            <HiOutlineDownload className="w-5 h-5 mr-2" />
-            Download
-          </a>
-          <a 
-            href={config.githubUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
-          >
-            View on GitHub
-          </a>
+        <div className="flex flex-col items-center gap-3 mt-10">
+          <div className="flex gap-4">
+            <a
+              href={config.downloadUrl}
+              className={cn(buttonVariants({ size: "lg" }), "flex items-center")}
+            >
+              <HiOutlineDownload className="w-5 h-5 mr-2" />
+              Download
+            </a>
+            <a
+              href={config.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
+            >
+              View on GitHub
+            </a>
+          </div>
+          <p className="text-sm text-gray-400">
+            ScreenshotSpace {config.appVersion} · macOS (.dmg)
+          </p>
         </div>
       </main>
 
@@ -126,6 +131,9 @@ export default function Home() {
             <HiOutlineDownload className="w-5 h-5 mr-2" />
             Download for Free
           </a>
+          <p className="mt-3 text-sm text-gray-400">
+            ScreenshotSpace {config.appVersion} for macOS
+          </p>
         </div>
       </section>
 

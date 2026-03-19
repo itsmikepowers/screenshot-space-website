@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { config } from "@/lib/config";
 
 export default function Pricing() {
   return (
@@ -19,7 +20,7 @@ export default function Pricing() {
             Pricing
           </Link>
           <a 
-            href="https://github.com/itsmikepowers/screenshot-space" 
+            href={config.githubUrl} 
             target="_blank" 
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "ghost" }))}
@@ -63,7 +64,7 @@ export default function Pricing() {
           </ul>
 
           <a 
-            href="https://github.com/itsmikepowers/screenshot-space/raw/main/releases/ScreenshotSpace-1.0.2.dmg"
+            href={config.downloadUrl}
             className={cn(buttonVariants({ size: "lg" }), "w-full")}
           >
             Download Now
@@ -72,7 +73,7 @@ export default function Pricing() {
 
         <p className="mt-8 text-sm text-gray-500">
           View the source on{" "}
-          <a href="https://github.com/itsmikepowers/screenshot-space" target="_blank" rel="noopener noreferrer" className="underline hover:text-black">
+          <a href={config.githubUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-black">
             GitHub
           </a>
         </p>

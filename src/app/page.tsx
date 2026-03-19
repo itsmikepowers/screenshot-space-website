@@ -5,6 +5,7 @@ import { HiOutlineDownload, HiOutlineShare, HiOutlinePencil, HiOutlineCode, HiOu
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { config } from "@/lib/config";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
             Pricing
           </Link>
           <a 
-            href="https://github.com/itsmikepowers/screenshot-space" 
+            href={config.githubUrl} 
             target="_blank" 
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "ghost" }))}
@@ -48,14 +49,14 @@ export default function Home() {
         
         <div className="flex gap-4 mt-10">
           <a 
-            href="https://github.com/itsmikepowers/screenshot-space/raw/main/releases/ScreenshotSpace-1.0.2.dmg"
+            href={config.downloadUrl}
             className={cn(buttonVariants({ size: "lg" }), "flex items-center")}
           >
             <HiOutlineDownload className="w-5 h-5 mr-2" />
             Download
           </a>
           <a 
-            href="https://github.com/itsmikepowers/screenshot-space" 
+            href={config.githubUrl} 
             target="_blank" 
             rel="noopener noreferrer"
             className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
@@ -119,7 +120,7 @@ export default function Home() {
             Download screenshot.space and start capturing better screenshots today.
           </p>
           <a 
-            href="https://github.com/itsmikepowers/screenshot-space/raw/main/releases/ScreenshotSpace-1.0.2.dmg"
+            href={config.downloadUrl}
             className={cn(buttonVariants({ size: "lg" }), "flex items-center inline-flex")}
           >
             <HiOutlineDownload className="w-5 h-5 mr-2" />

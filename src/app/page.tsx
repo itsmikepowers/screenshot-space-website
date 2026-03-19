@@ -1,35 +1,16 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import { HiOutlineDownload, HiOutlineShare, HiOutlinePencil, HiOutlineCode, HiOutlineCamera } from "react-icons/hi";
-import Image from "next/image";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { config } from "@/lib/config";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/icon.png" alt="screenshot.space" width={24} height={24} />
-          <span className="font-semibold text-lg">screenshot.space</span>
-        </Link>
-        <nav className="flex items-center gap-4">
-          <Link href="/pricing" className={cn(buttonVariants({ variant: "ghost" }))}>
-            Pricing
-          </Link>
-          <a 
-            href={config.githubUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant: "ghost" }))}
-          >
-            GitHub
-          </a>
-        </nav>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <main className="flex flex-col items-center justify-center px-6 py-32 text-center">
@@ -137,23 +118,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-6 py-8 border-t border-gray-100">
-        <div className="flex items-center justify-between max-w-5xl mx-auto">
-          <div className="flex items-center gap-2">
-            <Image src="/icon.png" alt="screenshot.space" width={20} height={20} className="opacity-40" />
-            <span className="text-gray-400 text-sm">screenshot.space</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <a href="https://github.com/itsmikepowers/screenshot-space" target="_blank" rel="noopener noreferrer" className="text-gray-400 text-sm hover:text-black">
-              GitHub
-            </a>
-            <Link href="/pricing" className="text-gray-400 text-sm hover:text-black">
-              Pricing
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -1,34 +1,15 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import { cn } from "@/lib/utils";
 import { config } from "@/lib/config";
 
 export default function Pricing() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/icon.png" alt="screenshot.space" width={24} height={24} />
-          <span className="font-semibold text-lg">screenshot.space</span>
-        </Link>
-        <nav className="flex items-center gap-4">
-          <Link href="/pricing" className={cn(buttonVariants({ variant: "ghost" }))}>
-            Pricing
-          </Link>
-          <a 
-            href={config.githubUrl} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className={cn(buttonVariants({ variant: "ghost" }))}
-          >
-            GitHub
-          </a>
-        </nav>
-      </header>
+      <Header />
 
       {/* Pricing Section */}
       <main className="flex flex-col items-center justify-center px-6 py-24 text-center">
@@ -79,18 +60,7 @@ export default function Pricing() {
         </p>
       </main>
 
-      {/* Footer */}
-      <footer className="px-6 py-8 border-t border-gray-100 mt-auto">
-        <div className="flex items-center justify-between max-w-4xl mx-auto">
-          <div className="flex items-center gap-2">
-            <Image src="/icon.png" alt="screenshot.space" width={20} height={20} className="opacity-40" />
-            <span className="text-gray-400 text-sm">screenshot.space</span>
-          </div>
-          <p className="text-gray-400 text-sm">
-            © 2026 screenshot.space. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

@@ -60,16 +60,6 @@ export default function Home() {
         {/* Hero App Window */}
         <div className="relative px-6 pb-24 pt-12">
           <div className="max-w-5xl mx-auto">
-            {/* Floating keyboard hint */}
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10">
-              <div className="flex items-center gap-3 px-5 py-2.5 bg-gray-900 text-white rounded-full shadow-2xl text-sm font-medium">
-                <kbd className="px-2.5 py-1 bg-gray-700 rounded text-xs">⌥ Option</kbd>
-                <span className="text-gray-300">tap for full screen</span>
-                <span className="text-gray-500">•</span>
-                <span className="text-gray-300">hold to select</span>
-              </div>
-            </div>
-
             {/* Main app window */}
             <div className="relative bg-white rounded-2xl shadow-2xl shadow-gray-900/10 border border-gray-200/60 overflow-hidden">
               {/* Window chrome */}

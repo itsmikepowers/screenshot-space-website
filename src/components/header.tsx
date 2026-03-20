@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between gap-2 border-b border-gray-100 bg-white px-3 py-2.5 sm:gap-3 sm:px-6 sm:py-4">
+    <header className="sticky top-0 z-50 flex items-center justify-between gap-2 border-b border-gray-200/60 bg-white/40 backdrop-blur-lg px-3 py-4 sm:gap-3 sm:px-6 sm:py-5">
       <Link
         href="/"
         className="flex min-w-0 max-w-[calc(100%-3rem)] items-center gap-2 sm:max-w-none"
@@ -25,9 +25,9 @@ export function Header() {
         <Image
           src="/icon.png"
           alt=""
-          width={24}
-          height={24}
-          className="size-6 shrink-0"
+          width={32}
+          height={32}
+          className="size-8 shrink-0"
         />
         <span className="truncate text-base font-semibold text-black sm:text-lg">
           screenshot.space

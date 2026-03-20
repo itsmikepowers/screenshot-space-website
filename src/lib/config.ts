@@ -1,7 +1,7 @@
 export const config = {
   downloadUrl:
-    "https://github.com/itsmikepowers/screenshot-space/raw/main/releases/ScreenshotSpace-1.0.11.dmg",
+    "https://github.com/itsmikepowers/screenshot-space/raw/main/releases/ScreenshotSpace-1.0.12.dmg",
   githubUrl: "https://github.com/itsmikepowers/screenshot-space",
   appName: "screenshot.space",
-  appVersion: "1.0.11",
+  appVersion: "1.0.12",
 };

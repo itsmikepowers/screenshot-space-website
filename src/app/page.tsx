@@ -24,9 +24,9 @@ export default function Home() {
           </div>
           
           <h1 className="text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight text-gray-900 max-w-4xl leading-[1.1]">
-            The fastest way to
+            Screenshots
             <br />
-            <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent">screenshot on Mac</span>
+            <span className="bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent">made simple</span>
           </h1>
           
           <p className="mt-6 text-xl text-gray-500 max-w-xl leading-relaxed">

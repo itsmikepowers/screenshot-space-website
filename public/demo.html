@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screenshot Space Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5f7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 8px;
+    }
+    
+    .subtitle {
+      color: #86868b;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+    
+    .demo-container {
+      display: flex;
+      gap: 40px;
+      max-width: 1200px;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .demo-section {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+    
+    /* App Window */
+    .app-window {
+      width: 700px;
+      max-width: 100%;
+    }
+    
+    .window-header {
+      background: linear-gradient(180deg, #f6f6f6 0%, #e8e8e8 100%);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #d1d1d6;
+    }
+    
+    .window-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .window-btn.close { background: #ff5f57; }
+    .window-btn.minimize { background: #febc2e; }
+    .window-btn.maximize { background: #28c840; }
+    
+    .window-title {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1d1d1f;
+    }
+    
+    .app-content {
+      display: flex;
+      height: 420px;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 160px;
+      background: #f9f9f9;
+      border-right: 1px solid #e5e5e5;
+      padding: 12px 8px;
+    }
+    
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    
+    .sidebar-item:hover {
+      background: #e8e8e8;
+    }
+    
+    .sidebar-item.active {
+      background: #007aff;
+      color: white;
+    }
+    
+    .sidebar-item svg {
+      width: 18px;
+      height: 18px;
+      opacity: 0.8;
+    }
+    
+    .sidebar-item.active svg {
+      opacity: 1;
+    }
+    
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 16px;
+      overflow: hidden;
+    }
+    
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .toolbar-left {
+      font-size: 13px;
+      color: #86868b;
+    }
+    
+    .toolbar-right {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .toolbar-btn {
+      padding: 6px 12px;
+      border: 1px solid #d1d1d6;
+      border-radius: 6px;
+      background: white;
+      font-size: 12px;
+      color: #1d1d1f;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    
+    .toolbar-btn:hover {
+      background: #f5f5f5;
+    }
+    
+    /* Screenshot Grid */
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    
+    .screenshot-item {
+      background: #f5f5f7;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    
+    .screenshot-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .screenshot-item.selected {
+      outline: 2px solid #007aff;
+      outline-offset: 2px;
+    }
+    
+    .screenshot-thumb {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    
+    .screenshot-thumb.blue { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .screenshot-thumb.green { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .screenshot-thumb.orange { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+    .screenshot-thumb.pink { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    
+    .screenshot-info {
+      padding: 8px 10px;
+    }
+    
+    .screenshot-name {
+      font-size: 11px;
+      font-weight: 500;
+      color: #1d1d1f;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .screenshot-date {
+      font-size: 10px;
+      color: #86868b;
+      margin-top: 2px;
+    }
+    
+    /* Shortcut Demo */
+    .shortcut-demo {
+      width: 360px;
+      padding: 24px;
+    }
+    
+    .shortcut-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1d1d1f;
+      margin-bottom: 20px;
+    }
+    
+    .shortcut-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    
+    .shortcut-row:last-child {
+      border-bottom: none;
+    }
+    
+    .shortcut-label {
+      font-size: 14px;
+      color: #1d1d1f;
+    }
+    
+    .shortcut-desc {
+      font-size: 12px;
+      color: #86868b;
+      margin-top: 4px;
+    }
+    
+    .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 28px;
+      padding: 0 10px;
+      background: linear-gradient(180deg, #fafafa 0%, #e8e8e8 100%);
+      border: 1px solid #c8c8c8;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #1d1d1f;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    .key-combo {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    
+    .key-action {
+      font-size: 11px;
+      color: #86868b;
+      margin-left: 8px;
+    }
+    
+    /* Animation */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    
+    .highlight-key {
+      background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 100%);
+      border-color: #64b5f6;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .demo-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .app-window {
+        width: 100%;
+      }
+      
+      .shortcut-demo {
+        width: 100%;
+        max-width: 400px;
+      }
+      
+      .sidebar {
+        width: 50px;
+      }
+      
+      .sidebar-item span {
+        display: none;
+      }
+      
+      .sidebar-item {
+        justify-content: center;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Screenshot Space</h1>
+  <p class="subtitle">A lightweight screenshot tool for macOS</p>
+  
+  <div class="demo-container">
+    <!-- App Window -->
+    <div class="demo-section app-window">
+      <div class="window-header">
+        <div class="window-btn close"></div>
+        <div class="window-btn minimize"></div>
+        <div class="window-btn maximize"></div>
+        <div class="window-title">Screenshot Space</div>
+        <div style="width: 52px;"></div>
+      </div>
+      
+      <div class="app-content">
+        <div class="sidebar">
+          <div class="sidebar-item active">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke-width="2"/></svg>
+            <span>Screenshots</span>
+          </div>
+          <div class="sidebar-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Search</span>
+          </div>
+          <div class="sidebar-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" stroke-width="2"/></svg>
+            <span>Shortcuts</span>
+          </div>
+          <div class="sidebar-item">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke-width="2"/></svg>
+            <span>Settings</span>
+          </div>
+        </div>
+        
+        <div class="main-content">
+          <div class="toolbar">
+            <div class="toolbar-left">12 screenshots</div>
+            <div class="toolbar-right">
+              <button class="toolbar-btn">Copy</button>
+              <button class="toolbar-btn">Reveal</button>
+              <button class="toolbar-btn">Delete</button>
+            </div>
+          </div>
+          
+          <div class="screenshot-grid">
+            <div class="screenshot-item selected">
+              <div class="screenshot-thumb">Preview</div>
+              <div class="screenshot-info">
+                <div class="screenshot-name">Screenshot 2026-03-19...</div>
+                <div class="screenshot-date">Just now</div>
+              </div>
+            </div>
+            <div class="screenshot-item">
+              <div class="screenshot-thumb blue">Code</div>
+              <div class="screenshot-info">
+                <div class="screenshot-name">Screenshot 2026-03-19...</div>
+                <div class="screenshot-date">2 min ago</div>
+              </div>
+            </div>
+            <div class="screenshot-item">
+              <div class="screenshot-thumb green">Terminal</div>
+              <div class="screenshot-info">
+                <div class="screenshot-name">Screenshot 2026-03-19...</div>
+                <div class="screenshot-date">5 min ago</div>
+              </div>
+            </div>
+            <div class="screenshot-item">
+              <div class="screenshot-thumb orange">Design</div>
+              <div class="screenshot-info">
+                <div class="screenshot-name">Screenshot 2026-03-18...</div>
+                <div class="screenshot-date">Yesterday</div>
+              </div>
+            </div>
+            <div class="screenshot-item">
+              <div class="screenshot-thumb pink">Notes</div>
+              <div class="screenshot-info">
+                <div class="screenshot-name">Screenshot 2026-03-18...</div>
+                <div class="screenshot-date">Yesterday</div>
+              </div>
+            </div>
+            <div class="screenshot-item">
+              <div class="screenshot-thumb">Browser</div>
+              <div class="screenshot-info">
+                <div class="screenshot-name">Screenshot 2026-03-17...</div>
+                <div class="screenshot-date">2 days ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Shortcut Demo -->
+    <div class="demo-section shortcut-demo">
+      <div class="shortcut-title">Keyboard Shortcuts</div>
+      
+      <div class="shortcut-row">
+        <div>
+          <div class="shortcut-label">Full Screen</div>
+          <div class="shortcut-desc">Capture entire screen</div>
+        </div>
+        <div class="key-combo">
+          <span class="key highlight-key pulse">⌥ Option</span>
+          <span class="key-action">tap</span>
+        </div>
+      </div>
+      
+      <div class="shortcut-row">
+        <div>
+          <div class="shortcut-label">Drag Selection</div>
+          <div class="shortcut-desc">Select any region</div>
+        </div>
+        <div class="key-combo">
+          <span class="key">⌥ Option</span>
+          <span class="key-action">hold</span>
+        </div>
+      </div>
+      
+      <div class="shortcut-row">
+        <div>
+          <div class="shortcut-label">Region Recapture</div>
+          <div class="shortcut-desc">Re-capture saved region</div>
+        </div>
+        <div class="key-combo">
+          <span class="key">🌐 Fn</span>
+          <span class="key-action">tap</span>
+        </div>
+      </div>
+      
+      <div class="shortcut-row">
+        <div>
+          <div class="shortcut-label">OCR Search</div>
+          <div class="shortcut-desc">Find text in screenshots</div>
+        </div>
+        <div style="font-size: 12px; color: #86868b;">In-app</div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.querySelectorAll('.screenshot-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.screenshot-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+      });
+    });
+    
+    document.querySelectorAll('.sidebar-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

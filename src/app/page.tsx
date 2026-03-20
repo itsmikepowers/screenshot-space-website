@@ -162,7 +162,7 @@ export default function Home() {
             </div>
             
             {/* App Preview */}
-            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
+            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden flex flex-col">
               <div className="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b border-gray-200">
                 <div className="w-3 h-3 rounded-full bg-red-400"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
@@ -170,7 +170,7 @@ export default function Home() {
                 <span className="flex-1 text-center text-sm text-gray-500">Screenshot Space</span>
               </div>
               
-              <div className="flex">
+              <div className="flex flex-1">
                 <div className="w-36 bg-gray-50 border-r border-gray-200 p-3 space-y-1">
                   <div className="px-3 py-2 bg-black text-white rounded-lg text-sm">Screenshots</div>
                   <div className="px-3 py-2 text-gray-600 text-sm">Search</div>

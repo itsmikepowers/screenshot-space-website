@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import { HiOutlineDownload } from "react-icons/hi";
 import { cn } from "@/lib/utils";
@@ -9,12 +10,13 @@ export function CTA() {
   return (
     <section className="px-6 py-32 bg-white">
       <div className="max-w-3xl mx-auto text-center">
-        <div className="inline-flex items-center justify-center w-20 h-20 mb-8 bg-gradient-to-br from-gray-900 to-gray-700 rounded-3xl shadow-2xl shadow-gray-900/30">
-          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" strokeWidth="2"/>
-            <circle cx="12" cy="13" r="4" strokeWidth="2"/>
-          </svg>
-        </div>
+        <Image
+          src="/icon.png"
+          alt="Screenshot Space"
+          width={80}
+          height={80}
+          className="mx-auto mb-8"
+        />
         
         <h2 className="text-4xl sm:text-5xl font-semibold text-gray-900 mb-4">
           Ready to try it?

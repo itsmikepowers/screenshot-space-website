@@ -1,65 +1,14 @@
-"use client";
-
-import { buttonVariants } from "@/components/ui/button";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { cn } from "@/lib/utils";
-import { config } from "@/lib/config";
+import { PricingHero, Benefits, FAQ } from "@/components/pricing";
 
 export default function Pricing() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-
-      {/* Pricing Section */}
-      <main className="flex flex-col items-center justify-center px-6 py-24 text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-black">
-          Free & Open Source
-        </h1>
-        
-        <p className="mt-6 text-lg text-gray-600 max-w-md">
-          screenshot.space is completely free and open source. 
-          No pricing tiers, no hidden fees, no limits.
-        </p>
-
-        <div className="mt-12 p-8 rounded-2xl border border-gray-200 max-w-sm w-full">
-          <div className="text-5xl font-bold text-black mb-2">$0</div>
-          <div className="text-gray-500 mb-6">Forever free</div>
-          
-          <ul className="text-left space-y-3 mb-8">
-            <li className="flex items-center gap-2 text-gray-700">
-              <span className="text-black">✓</span> Unlimited screenshots
-            </li>
-            <li className="flex items-center gap-2 text-gray-700">
-              <span className="text-black">✓</span> All editing features
-            </li>
-            <li className="flex items-center gap-2 text-gray-700">
-              <span className="text-black">✓</span> Cloud sharing
-            </li>
-            <li className="flex items-center gap-2 text-gray-700">
-              <span className="text-black">✓</span> No watermarks
-            </li>
-            <li className="flex items-center gap-2 text-gray-700">
-              <span className="text-black">✓</span> Community support
-            </li>
-          </ul>
-
-          <a 
-            href={config.downloadUrl}
-            className={cn(buttonVariants({ size: "lg" }), "w-full")}
-          >
-            Download Now
-          </a>
-        </div>
-
-        <p className="mt-8 text-sm text-gray-500">
-          View the source on{" "}
-          <a href={config.githubUrl} target="_blank" rel="noopener noreferrer" className="underline hover:text-black">
-            GitHub
-          </a>
-        </p>
-      </main>
-
+      <PricingHero />
+      <Benefits />
+      <FAQ />
       <Footer />
     </div>
   );
